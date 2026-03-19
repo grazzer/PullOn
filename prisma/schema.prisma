@@ -5,8 +5,8 @@
 // Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
 
 generator client {
-  provider = "prisma-client"
-  output   = "../app/generated/prisma"
+  // provider = "prisma-client"
+  provider = "prisma-client-js"
 }
 
 datasource db {
@@ -14,9 +14,113 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model Location{
+  id Int @id @default(autoincrement())
+  name String
+  competitions Competition[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
 
-model User { 
+model Competition  { 
   id    Int     @id @default(autoincrement()) 
-  email String  @unique
-  name  String?
+  name  String
+  date DateTime
+  description String?
+  results Result[]
+  shape Json
+  location   Location @relation(fields: [locationId], references: [id])
+  locationId Int
+  // registeredAthletesIds Int[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 } 
+
+model Result{
+  id Int @id @default(autoincrement())
+  athlete   User @relation(fields: [athleteId], references: [id])
+  athleteId String
+  competition   Competition @relation(fields: [competitionId], references: [id])
+  competitionId Int
+  category String
+  round String
+  score Json
+  position Int?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+enum Role { 
+  ATHLETE
+  CENTER 
+  ADMIN 
+} 
+
+// Better Auth created models
+
+model User {
+  id            String    @id
+  name          String
+  email         String
+  emailVerified Boolean   @default(false)
+  image         String?
+  role  Role?
+  results Result[]
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  sessions      Session[]
+  accounts      Account[]
+
+  @@unique([email])
+  @@map("user")
+}
+
+model Session {
+  id        String   @id
+  expiresAt DateTime
+  token     String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  ipAddress String?
+  userAgent String?
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([token])
+  @@index([userId])
+  @@map("session")
+}
+
+model Account {
+  id                    String    @id
+  accountId             String
+  providerId            String
+  userId                String
+  user                  User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  accessToken           String?
+  refreshToken          String?
+  idToken               String?
+  accessTokenExpiresAt  DateTime?
+  refreshTokenExpiresAt DateTime?
+  scope                 String?
+  password              String?
+  createdAt             DateTime  @default(now())
+  updatedAt             DateTime  @updatedAt
+
+  @@index([userId])
+  @@map("account")
+}
+
+model Verification {
+  id         String   @id
+  identifier String
+  value      String
+  expiresAt  DateTime
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@index([identifier])
+  @@map("verification")
+}
