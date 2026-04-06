@@ -12,6 +12,7 @@ const shape: any = {
       rounds: [
         {
           id: "r1",
+          stage: 1,
           name: "qualifiers",
           maxCompetitors: 100,
           problemCount: 3,
@@ -40,3 +41,28 @@ const result = {
     3: true,
   },
 };
+
+// const formSchema = z.object({
+//   CompetitionName: z
+//     .string()
+//     .min(5, "name must be at least 5 characters.")
+//     .max(32, "name must be at most 32 characters."),
+//   categories: z.array(
+//     z.object({
+//       // id: z.string(),
+//       name: z.optional(z.string()),
+//       ageRange: z.tuple([z.number(), z.number()]),
+//       description: z.string(),
+//       rounds: z.array(
+//         z.object({
+//           // id: z.string(),
+//           stage: z.number(),
+//           name: z.optional(z.string()),
+//           maxCompetitors: z.number(),
+//           problemCount: z.number(),
+//           gradingStyle: z.string(),
+//         }),
+//       ),
+//     }),
+//   ),
+// });

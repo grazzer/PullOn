@@ -1,9 +1,10 @@
-function buildCompShape(
+function buildCompShapeAction(
   name: string,
   location: number,
   date: Date,
   description: string,
 ): Record<string, any> {
+  "use server";
   const shape = {
     name: name,
     location: location,
@@ -13,12 +14,13 @@ function buildCompShape(
   };
   return shape;
 }
-function addCategory(
+function addCategoryAction(
   shape: Record<string, any>,
   name: string,
   ageRange: [number, number],
   description: string,
 ) {
+  "use server";
   let _id = "";
   if (shape.category.length == 0) {
     _id = "c1";
@@ -38,7 +40,7 @@ function addCategory(
   return shape;
 }
 
-function addRound(
+function addRoundAction(
   shape: Record<string, any>,
   categoryId: string,
   name: string,
@@ -46,6 +48,7 @@ function addRound(
   problemCount: number,
   style: string,
 ) {
+  "use server";
   const category = shape.category.find((cat: any) => cat.id === categoryId);
   if (!category) {
     throw new Error("Cannot create round, category not found");
