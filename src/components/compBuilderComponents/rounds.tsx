@@ -34,7 +34,7 @@ export function RoundBlank({ RoundsFields, form, categoryIndex }) {
         onClick={() => onclickAddRound(RoundsFields, form, categoryIndex)}
         className="hover:bg-gray-200 active:bg-gray-50  border-dashed border-2 bg-gray-100 border-gray-300 ring-0 max-w-xl"
       >
-        <CardContent className="m-auto">
+        <CardContent className=" m-auto">
           <div className="flex text-base center">
             <Plus />
           </div>
@@ -69,7 +69,7 @@ export function RoundOccupied({
         onClick={() => onSelectRound(categoryIndex, roundIndex, setViewIndex)}
         className={`${activeColors(isSelected)} ... max-w-xl`}
       >
-        <CardContent className="h-7 h-max-7 m-auto w-full">
+        <CardContent className=" h-7 h-max-7 m-auto w-full">
           <div className="flex flex-row w-full items-center justify-between">
             <div className="flex text-base center text-nowrap">
               {form.watch(

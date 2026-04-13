@@ -11,9 +11,9 @@ export function CompBuilderLayout() {
           save
         </Button>
       </div>
-      <div className="flex w-full flex-row gap-10">
+      <div className=" flex w-full flex-row gap-10">
         <div className="flex flex-1">
-          <Card className="w-full">
+          <Card className="w-full ">
             <CardHeader>
               <CardTitle>Details</CardTitle>
             </CardHeader>

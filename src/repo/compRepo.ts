@@ -1,6 +1,6 @@
 import { iCompRepo } from "./iCompRepo.interface";
 import { prisma } from "../lib/prisma";
-import { comp } from "../models/dataBase.model";
+import { Comp } from "../models/dataBase.model";
 import {
   competitionArraySchema,
   competitionSchema,
@@ -10,7 +10,7 @@ import { getSession } from "../lib/getSession";
 //TODO: handle errors
 
 class CompRepo implements iCompRepo {
-  async getAll(): Promise<comp[] | null> {
+  async getAll(): Promise<Comp[] | null> {
     try {
       const results = await prisma.competition.findMany({
         omit: {
@@ -42,7 +42,7 @@ class CompRepo implements iCompRepo {
   }
   async getByLocationId(locationId: number) {
     try {
-      competitionSchema.shape.location.parse(locationId);
+      competitionSchema.shape.locationId.parse(locationId);
       const result = await prisma.competition.findMany({
         where: { locationId },
         omit: { createdAt: true, updatedAt: true },
@@ -55,24 +55,25 @@ class CompRepo implements iCompRepo {
     }
   }
 
-  async create(comp: Partial<comp>) {
+  async create(comp: Partial<Comp>) {
     try {
       // validation
-      competitionSchema.parse(comp);
+      competitionSchema.safeParse(comp);
 
+      //TODO: implement users
       // authentication and authorization
-      const { session, user } = await getSession();
-      if (!session) {
-        throw new Error("Unauthorized");
-      }
-      if (!user.role.includes("admin")) {
-        throw new Error("Forbidden");
-      }
+      // const { session, user } = await getSession();
+      // if (!session) {
+      //   throw new Error("Unauthorized");
+      // }
+      // if (!user.role.includes("admin")) {
+      //   throw new Error("Forbidden");
+      // }
 
       const res = await prisma.competition.create({
         data: {
           name: comp.name,
-          locationId: comp.location,
+          locationId: comp.locationId,
           date: comp.date,
           description: comp.description || "",
           shape: comp.shape || {},

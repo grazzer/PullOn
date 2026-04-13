@@ -19,7 +19,7 @@ export const competitionSchema = z
     id: id,
     name: z.string().min(1).max(255),
     date: z.date(),
-    location: id,
+    locationId: id,
     results: z.optional(z.array(resultSchema)),
     shape: z.json(),
     description: z.optional(z.string().max(1000)),

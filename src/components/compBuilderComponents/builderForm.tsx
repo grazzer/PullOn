@@ -9,6 +9,9 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { CompDetailsArea } from "./detailsArea";
 import { Category } from "./categories";
 import { CategoryDetails } from "./detailsArea";
+import { saveCompetitionData } from "../../app/actions/compBuilderFormActions";
+import { compBuilderFormSchema } from "../../models/validation/compBuilderform.schema";
+import { toast } from "sonner";
 
 function useHasMounted() {
   const [hasMounted, setHasMounted] = useState(false);
@@ -16,36 +19,6 @@ function useHasMounted() {
     setHasMounted(true);
   }, []);
   return hasMounted;
-}
-
-const formSchema = z.object({
-  CompetitionName: z
-    .string()
-    .min(2, "name must be at least 2 characters.")
-    .max(50, "name must be at most 50 characters."),
-  categories: z.array(
-    z.object({
-      // id: z.string(),
-      name: z.optional(z.string()),
-      ageLower: z.string(),
-      ageUpper: z.string(),
-      description: z.string(),
-      rounds: z.array(
-        z.object({
-          // id: z.string(),
-          stage: z.string(),
-          name: z.optional(z.string()),
-          maxCompetitors: z.string(),
-          problemCount: z.string(),
-          gradingStyle: z.string(),
-        }),
-      ),
-    }),
-  ),
-});
-
-function onSubmit(data) {
-  console.log("Form submitted:", data);
 }
 
 function getCompetitionData(): object {
@@ -114,8 +87,8 @@ function onclickAddCategory(fieldsCategories) {
 
 export function CompBuilderForm() {
   const hasMounted = useHasMounted();
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
+  const form = useForm<z.infer<typeof compBuilderFormSchema>>({
+    resolver: zodResolver(compBuilderFormSchema),
     defaultValues: getCompetitionData() || {
       CompetitionName: "",
       categories: [
@@ -138,6 +111,17 @@ export function CompBuilderForm() {
     },
   });
 
+  async function onSubmit(data) {
+    console.log("form data: ", data);
+    try {
+      const result = await saveCompetitionData(data);
+      console.log("save result: ", result);
+      toast("Competition has been created.");
+    } catch (error) {
+      console.error("Error saving competition data:", error);
+    }
+  }
+
   const categoryFields = useFieldArray({
     control: form.control,
     name: "categories",
@@ -148,7 +132,12 @@ export function CompBuilderForm() {
     roundIndex: 0,
   });
   return (
-    <form id="compBuilderForm" onSubmit={form.handleSubmit(onSubmit)}>
+    <form
+      id="compBuilderForm"
+      onSubmit={form.handleSubmit(onSubmit, (errors) => {
+        console.log("form errors:", errors);
+      })}
+    >
       <PortalCategoryDetails
         form={form}
         viewIndex={viewIndex}

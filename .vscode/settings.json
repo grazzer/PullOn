@@ -1,3 +1,4 @@
 {
-  "cSpell.words": ["maxcomptitors"]
+  "cSpell.words": ["maxcomptitors"],
+  "js/ts.tsdk.path": "node_modules\\typescript\\lib"
 }

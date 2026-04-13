@@ -18,7 +18,7 @@ export function CompDetailsArea({ form }) {
   return (
     <div className="pb-8">
       <Controller
-        name="CompetitionName"
+        name="competitionName"
         control={form.control}
         render={({ field, fieldState }) => (
           <GenericField
@@ -27,6 +27,21 @@ export function CompDetailsArea({ form }) {
             fieldState={fieldState}
             id={"comp-shape-form-comp-name"}
             placeholder={"enter competition name"}
+          />
+        )}
+      />
+      <div className="h-4" />
+      <Controller
+        name="competitionDate"
+        control={form.control}
+        render={({ field, fieldState }) => (
+          <GenericField
+            type="date"
+            label={"Competition Date"}
+            field={field}
+            fieldState={fieldState}
+            id={"comp-shape-form-comp-date"}
+            placeholder={"enter competition date"}
           />
         )}
       />
