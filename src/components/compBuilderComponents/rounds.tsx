@@ -69,7 +69,7 @@ export function RoundOccupied({
         onClick={() => onSelectRound(categoryIndex, roundIndex, setViewIndex)}
         className={`${activeColors(isSelected)} ... max-w-xl`}
       >
-        <CardContent className=" h-7 h-max-7 m-auto w-full">
+        <CardContent className="-7 h-max-7 m-auto w-full">
           <div className="flex flex-row w-full items-center justify-between">
             <div className="flex text-base center text-nowrap">
               {form.watch(
