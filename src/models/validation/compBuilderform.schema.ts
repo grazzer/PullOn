@@ -1,5 +1,23 @@
 import { z } from "zod";
 
+export const compShapeSchema = z.object({
+  // id: z.string(),
+  name: z.optional(z.string()),
+  ageLower: z.string(),
+  ageUpper: z.string(),
+  description: z.string(),
+  rounds: z.array(
+    z.object({
+      // id: z.string(),
+      stage: z.string(),
+      name: z.optional(z.string()),
+      maxCompetitors: z.string(),
+      problemCount: z.string(),
+      gradingStyle: z.string(),
+    }),
+  ),
+});
+
 export const compBuilderFormSchema = z.object({
   competitionName: z
     .string()
@@ -10,25 +28,8 @@ export const compBuilderFormSchema = z.object({
     const date = new Date(dateStr);
     return !isNaN(date.getTime());
   }, "Invalid date format. Please use a valid date string."),
-  categories: z.array(
-    z.object({
-      // id: z.string(),
-      name: z.optional(z.string()),
-      ageLower: z.string(),
-      ageUpper: z.string(),
-      description: z.string(),
-      rounds: z.array(
-        z.object({
-          // id: z.string(),
-          stage: z.string(),
-          name: z.optional(z.string()),
-          maxCompetitors: z.string(),
-          problemCount: z.string(),
-          gradingStyle: z.string(),
-        }),
-      ),
-    }),
-  ),
+  categories: z.array(compShapeSchema),
 });
 
 export type CompBuilderForm = z.infer<typeof compBuilderFormSchema>;
+export type CompShape = z.infer<typeof compShapeSchema>;
