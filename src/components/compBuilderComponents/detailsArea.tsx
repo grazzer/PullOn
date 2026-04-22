@@ -68,7 +68,7 @@ export function CategoryDetails({ form, viewIndex }) {
             control={form.control}
             render={({ field, fieldState }) => (
               <GenericField
-                label={"name"}
+                label={"Name"}
                 field={field}
                 fieldState={fieldState}
                 id={`comp-shape-form-category-${viewIndex.categoryIndex}-name`}
@@ -82,7 +82,7 @@ export function CategoryDetails({ form, viewIndex }) {
             render={({ field, fieldState }) => (
               <GenericField
                 type={"number"}
-                label={"age lower"}
+                label={"Lower Age Limit"}
                 field={field}
                 fieldState={fieldState}
                 id={`comp-shape-form-category-${viewIndex.categoryIndex}-ageLower`}
@@ -95,7 +95,7 @@ export function CategoryDetails({ form, viewIndex }) {
             control={form.control}
             render={({ field, fieldState }) => (
               <GenericField
-                label={"age upper"}
+                label={"Upper Age Limit"}
                 field={field}
                 fieldState={fieldState}
                 id={`comp-shape-form-category-${viewIndex.categoryIndex}-ageUpper`}
@@ -108,7 +108,7 @@ export function CategoryDetails({ form, viewIndex }) {
             control={form.control}
             render={({ field, fieldState }) => (
               <GenericField
-                label={"description"}
+                label={"Description"}
                 field={field}
                 fieldState={fieldState}
                 id={`comp-shape-form-category-${viewIndex.categoryIndex}-description`}
@@ -161,7 +161,7 @@ export function RoundDetails({
             control={form.control}
             render={({ field, fieldState }) => (
               <GenericField
-                label={"name"}
+                label={"Name"}
                 field={field}
                 fieldState={fieldState}
                 id={`comp-shape-form-category-${viewIndex.categoryIndex}-round-${roundIndex}-name`}
@@ -180,7 +180,7 @@ export function RoundDetails({
             control={form.control}
             render={({ field, fieldState }) => (
               <GenericField
-                label={"max competitors"}
+                label={"Max Competitors"}
                 field={field}
                 fieldState={fieldState}
                 id={`comp-shape-form-category-${viewIndex.categoryIndex}-round-${roundIndex}-maxCompetitors`}
@@ -193,7 +193,7 @@ export function RoundDetails({
             control={form.control}
             render={({ field, fieldState }) => (
               <GenericField
-                label={"problem count"}
+                label={"Problem Count"}
                 field={field}
                 fieldState={fieldState}
                 id={`comp-shape-form-category-${viewIndex.categoryIndex}-round-${roundIndex}-problemCount`}
@@ -206,7 +206,7 @@ export function RoundDetails({
             control={form.control}
             render={({ field, fieldState }) => (
               <GenericField
-                label={"grading style"}
+                label={"Grading Style"}
                 field={field}
                 fieldState={fieldState}
                 id={`comp-shape-form-category-${viewIndex.categoryIndex}-round-${roundIndex}-gradingStyle`}

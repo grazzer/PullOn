@@ -9,6 +9,18 @@ import {
 import { Separator } from "../../../../../components/ui/separator";
 import { CompResultsForm } from "../../../../../components/compResults/form";
 import { Button } from "../../../../../components/ui/button";
+import { auth } from "../../../../../lib/auth";
+
+// async function test() {
+//   const data = await auth.api.signUpEmail({
+//     body: {
+//       name: "Test Man", // required
+//       email: "TM.doe@example.com", // required
+//       password: "password1234", // required
+//     },
+//   });
+//   console.log("Sign Up:", { data });
+// }
 
 export default async function Page({
   params,

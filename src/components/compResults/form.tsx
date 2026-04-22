@@ -190,7 +190,7 @@ function InputArea({
           {Array(Number(catData.rounds[roundIndex].problemCount))
             .fill("problem")
             .map((data, index) => (
-              <TableHead key={index}>no. {index + 1}</TableHead>
+              <TableHead key={index}>No. {index + 1}</TableHead>
             ))}
           <TableHead className="text-right">Score</TableHead>
         </TableRow>
